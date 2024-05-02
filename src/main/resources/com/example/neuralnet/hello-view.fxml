@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <right>
@@ -114,11 +115,61 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox id="inputNeurons" prefHeight="360.0" prefWidth="25.0" />
-            <Pane id="inputWeights" prefHeight="360.0" prefWidth="25.0" />
-            <HBox id="hiddenLayers" maxWidth="300.0" prefHeight="360.0" prefWidth="25.0" />
-            <Pane id="outputWeights" prefHeight="200.0" prefWidth="25.0" />
-            <VBox id="outputNeurons" prefHeight="200.0" prefWidth="25.0" />
+            <VBox id="inputNeurons" alignment="CENTER" prefHeight="360.0" prefWidth="25.0" spacing="5.0">
+               <children>
+                  <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="190.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+               </children></VBox>
+            <Pane id="inputWeights" prefHeight="360.0" prefWidth="25.0">
+               <children>
+                  <Line endX="12.0" endY="14.5" layoutX="13.0" layoutY="180.0" startX="-12.0" startY="14.5" />
+                  <Line endX="12.0" endY="-14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
+                  <Line endX="12.0" endY="-43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
+                  <Line endX="12.0" endY="43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
+                  <Line endX="12.0" endY="14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
+                  <Line endX="12.0" endY="-14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
+                  <Line endX="12.0" endY="-43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
+                  <Line endX="12.0" endY="43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
+               </children></Pane>
+            <HBox id="hiddenLayers" maxWidth="300.0" prefHeight="360.0" prefWidth="75.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0" spacing="5.0">
+                     <children>
+                        <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="190.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="202.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="214.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </VBox>
+                  <Pane id="outputWeights" prefHeight="360.0" prefWidth="25.0">
+                     <children>
+                        <Line endX="24.0" endY="14.5" layoutY="180.0" startY="-43.5" />
+                        <Line endX="24.0" endY="43.5" layoutY="180.0" startY="-43.5" />
+                        <Line endX="24.0" endY="-43.5" layoutY="180.0" startY="-43.5" />
+                        <Line endX="24.0" endY="-14.5" layoutY="180.0" startY="-43.5" />
+                        <Line endX="24.0" endY="14.5" layoutY="180.0" startY="-14.5" />
+                        <Line endX="24.0" endY="43.5" layoutY="180.0" startY="-14.5" />
+                        <Line endX="24.0" endY="-43.5" layoutY="180.0" startY="-14.5" />
+                        <Line endX="24.0" endY="-14.5" layoutY="180.0" startY="-14.5" />
+                        <Line endX="24.0" endY="14.5" layoutY="180.0" startY="14.5" />
+                        <Line endX="24.0" endY="43.5" layoutY="180.0" startY="14.5" />
+                        <Line endX="24.0" endY="-43.5" layoutY="180.0" startY="14.5" />
+                        <Line endX="24.0" endY="-14.5" layoutY="180.0" startY="14.5" />
+                        <Line endX="24.0" endY="14.5" layoutY="180.0" startY="43.5" />
+                        <Line endX="24.0" endY="43.5" layoutY="180.0" startY="43.5" />
+                        <Line endX="24.0" endY="-43.5" layoutY="180.0" startY="43.5" />
+                        <Line endX="24.0" endY="-14.5" layoutY="180.0" startY="43.5" />
+                     </children></Pane>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0" spacing="5.0">
+                     <children>
+                        <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="190.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="202.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="214.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </VBox>
+               </children></HBox>
+            <VBox id="outputNeurons" alignment="CENTER" prefHeight="200.0" prefWidth="25.0" />
          </children>
       </HBox>
    </center>
