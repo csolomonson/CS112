@@ -7,7 +7,7 @@ public class InputNeuron extends Neuron{
         return input;
     }
 
-    public void setInput(double input) {
+    public void setValue(double input) {
         this.input = input;
     }
 }
