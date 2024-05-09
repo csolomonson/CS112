@@ -24,7 +24,7 @@ public class NeuralNetwork {
             if (i == 0) hiddenLayers[i].setInputLayer(inputs);
             else hiddenLayers[i].setInputLayer(hiddenLayers[i-1]);
         }
-        outputLayer.setInputLayer(hiddenLayers[hiddenSize-1]);
+        outputLayer.setInputLayer(hiddenLayers[numHiddenLayers-1]);
     }
 
     public void setHyperParameters(int inputSize, int numHiddenLayers, int hiddenSize, int outputSize) throws IllegalArgumentException{

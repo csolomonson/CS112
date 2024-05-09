@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.neuralnet.NeuronController">
    <right>
       <VBox prefHeight="380.0" prefWidth="220.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField id="inNum" prefHeight="25.0" prefWidth="50.0" />
+                  <TextField fx:id="inNum" onAction="#updateStructure" prefHeight="25.0" prefWidth="50.0" text="2" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -34,7 +34,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField id="hiddenNum" prefHeight="25.0" prefWidth="50.0" />
+                  <TextField fx:id="hiddenNum" prefHeight="25.0" prefWidth="50.0" text="1" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -47,7 +47,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField id="hiddenSize" prefHeight="25.0" prefWidth="50.0" />
+                  <TextField fx:id="hiddenSize" prefHeight="25.0" prefWidth="50.0" text="4" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -60,7 +60,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField id="numOut" prefHeight="25.0" prefWidth="50.0" />
+                  <TextField fx:id="numOut" prefHeight="25.0" prefWidth="50.0" text="4" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -71,7 +71,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <ComboBox id="actFuncChooser" prefHeight="25.0" prefWidth="200.0" promptText="Activation Function">
+            <ComboBox fx:id="actFuncChooser" prefHeight="25.0" prefWidth="200.0" promptText="Activation Function">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -83,9 +83,9 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="180.0" spacing="5.0">
                <children>
-                  <Button id="randomButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Random" />
-                  <Button id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Save" />
-                  <Button id="uploadButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Upload" />
+                  <Button fx:id="randomButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Random" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Save" />
+                  <Button fx:id="uploadButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Upload" />
                </children>
 
                <VBox.margin>
@@ -95,7 +95,7 @@
                   <Insets />
                </opaqueInsets>
             </HBox>
-            <Label id="message" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="200.0" textFill="RED">
+            <Label fx:id="message" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="200.0" textFill="RED">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
@@ -115,12 +115,12 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox id="inputNeurons" alignment="CENTER" prefHeight="360.0" prefWidth="25.0" spacing="5.0">
+            <VBox fx:id="inputNeurons" alignment="CENTER" prefHeight="360.0" prefWidth="25.0" spacing="5.0">
                <children>
                   <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="190.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                </children></VBox>
-            <Pane id="inputWeights" prefHeight="360.0" prefWidth="25.0">
+            <Pane fx:id="inputWeights" prefHeight="360.0" prefWidth="25.0">
                <children>
                   <Line endX="12.0" endY="14.5" layoutX="13.0" layoutY="180.0" startX="-12.0" startY="14.5" />
                   <Line endX="12.0" endY="-14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
@@ -131,7 +131,7 @@
                   <Line endX="12.0" endY="-43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
                   <Line endX="12.0" endY="43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
                </children></Pane>
-            <HBox id="hiddenLayers" maxWidth="300.0" prefHeight="360.0" prefWidth="75.0">
+            <HBox fx:id="hiddenLayers" maxWidth="300.0" prefHeight="360.0" prefWidth="75.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0" spacing="5.0">
                      <children>
@@ -141,7 +141,7 @@
                         <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="214.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </VBox>
-                  <Pane id="outputWeights" prefHeight="360.0" prefWidth="25.0">
+                  <Pane fx:id="outputWeights" prefHeight="360.0" prefWidth="25.0">
                      <children>
                         <Line endX="24.0" endY="14.5" layoutY="180.0" startY="-43.5" />
                         <Line endX="24.0" endY="43.5" layoutY="180.0" startY="-43.5" />
@@ -169,7 +169,7 @@
                      </children>
                   </VBox>
                </children></HBox>
-            <VBox id="outputNeurons" alignment="CENTER" prefHeight="200.0" prefWidth="25.0" />
+            <VBox fx:id="outputNeurons" alignment="CENTER" prefHeight="200.0" prefWidth="25.0" />
          </children>
       </HBox>
    </center>
