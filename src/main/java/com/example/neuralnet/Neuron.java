@@ -95,6 +95,7 @@ public class Neuron implements Cloneable {
         this.inputs = inputs.clone();
         this.size = inputs.length;
         this.weights = new double[size];
+        randomWeights();
     }
 
     /**
@@ -117,6 +118,13 @@ public class Neuron implements Cloneable {
         if (weights.length != size)
             throw new RuntimeException("Poop! that's not the right number of weights!");
         this.weights = weights.clone();
+    }
+
+    public void randomWeights() {
+        for (int i = 0; i < weights.length; i++) {
+            weights[i] = 2*Math.random() -1; //random number between -1 and 1
+        }
+        bias = 2*Math.random() -1;
     }
 
     /**

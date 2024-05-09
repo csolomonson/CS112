@@ -2,9 +2,9 @@ package com.example.neuralnet;
 
 public class NeuralNetworkLayer {
     public int size;
-    private Neuron[] neurons;
-    private static int population;
-    private int id;
+    protected Neuron[] neurons;
+    protected static int population;
+    protected int id;
     NeuralNetworkLayer inputLayer;
     public NeuralNetworkLayer (Neuron[] neurons) {
         this.size = neurons.length;
@@ -13,6 +13,17 @@ public class NeuralNetworkLayer {
         id = population;
 
         //NeuralNetworkLayer outputLayer;
+    }
+
+    public NeuralNetworkLayer (int size) {
+        Neuron[] neurons = new Neuron[size];
+        for (int i = 0; i < size; i++) {
+            neurons[i] = new Neuron();
+        }
+        this.size = size;
+        this.neurons = neurons;
+        population += 1;
+        this.id = population;
     }
     public NeuralNetworkLayer() {
         this(new Neuron[0]);
@@ -34,6 +45,20 @@ public class NeuralNetworkLayer {
         for (Neuron neuron : neurons) {
             neuron.setInputs(input.getNeurons());
         }
+    }
+
+    public void update() {
+        for (Neuron n : neurons) {
+            n.calculate();
+        }
+    }
+
+    public double[] getOutputs() {
+        double[] outs = new double[size];
+        for (int i = 0; i < size; i++) {
+            outs[i] = neurons[i].getOutput();
+        }
+        return outs;
     }
 
     public String toString() {
