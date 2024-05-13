@@ -1,5 +1,8 @@
 package com.example.neuralnet;
 
+import com.example.neuralnet.activation.ActivationFunction;
+import com.example.neuralnet.activation.Linear;
+
 import java.util.Arrays;
 
 
@@ -8,6 +11,7 @@ public class Neuron implements Cloneable {
     private double bias;
     private double[] weights;
     private Neuron[] inputs;
+    private ActivationFunction af;
 
     // calculated, not set
     private double activation;
@@ -24,6 +28,7 @@ public class Neuron implements Cloneable {
         setInputs(inputs);
         setWeights(weights);
         setBias(bias);
+        this.af = new Linear();
     }
 
     /**
@@ -51,7 +56,7 @@ public class Neuron implements Cloneable {
         for (int i = 0; i < size; i++) {
             weightedSum += inputs[i].getOutput() * weights[i];
         }
-        activation = weightedSum + bias;
+        activation = af.func(weightedSum + bias);
         //System.out.println(activation);
     }
 
@@ -195,5 +200,9 @@ public class Neuron implements Cloneable {
     public String toString() {
         return String.format("Neuron with %d inputs, weights of %s, and a bias of %f", size, Arrays.toString(weights),
                 bias);
+    }
+
+    public void setActivationFunction(ActivationFunction af) {
+        this.af = af;
     }
 }

@@ -34,7 +34,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField fx:id="hiddenNum" prefHeight="25.0" prefWidth="50.0" text="1" />
+                  <TextField fx:id="hiddenNum" onAction="#updateStructure" prefHeight="25.0" prefWidth="50.0" text="1" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -47,7 +47,7 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField fx:id="hiddenSize" prefHeight="25.0" prefWidth="50.0" text="4" />
+                  <TextField fx:id="hiddenSize" onAction="#updateStructure" prefHeight="25.0" prefWidth="50.0" text="4" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -60,22 +60,22 @@
                         <Insets left="20.0" />
                      </HBox.margin></Label>
                   <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="10.0" />
-                  <TextField fx:id="numOut" prefHeight="25.0" prefWidth="50.0" text="4" />
+                  <TextField fx:id="numOut" onAction="#updateStructure" prefHeight="25.0" prefWidth="50.0" text="4" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
             </HBox>
-            <Label alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="200.0" text="Settings">
+            <Label alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="200.0" text="Activation Function">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <ComboBox fx:id="actFuncChooser" prefHeight="25.0" prefWidth="200.0" promptText="Activation Function">
+            <ChoiceBox fx:id="activationFunctionChooser" prefWidth="200.0" onAction="#updateActFunc" value="Linear">
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="10.0" />
                </VBox.margin>
-            </ComboBox>
+            </ChoiceBox>
             <Label alignment="TOP_CENTER" layoutX="10.0" layoutY="127.0" prefHeight="17.0" prefWidth="200.0" text="Network">
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -83,7 +83,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="180.0" spacing="5.0">
                <children>
-                  <Button fx:id="randomButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Random" />
+                  <Button fx:id="randomButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Random" onAction="#updateStructure"/>
                   <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Save" />
                   <Button fx:id="uploadButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Upload" />
                </children>
@@ -113,24 +113,13 @@
       <Separator prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0" BorderPane.alignment="CENTER">
          <children>
             <VBox fx:id="inputNeurons" alignment="CENTER" prefHeight="360.0" prefWidth="25.0" spacing="5.0">
                <children>
                   <Circle fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fill="DODGERBLUE" layoutX="23.0" layoutY="190.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                </children></VBox>
-            <Pane fx:id="inputWeights" prefHeight="360.0" prefWidth="25.0">
-               <children>
-                  <Line endX="12.0" endY="14.5" layoutX="13.0" layoutY="180.0" startX="-12.0" startY="14.5" />
-                  <Line endX="12.0" endY="-14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
-                  <Line endX="12.0" endY="-43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
-                  <Line endX="12.0" endY="43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="14.5" />
-                  <Line endX="12.0" endY="14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
-                  <Line endX="12.0" endY="-14.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
-                  <Line endX="12.0" endY="-43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
-                  <Line endX="12.0" endY="43.5" layoutX="12.0" layoutY="180.0" startX="-12.0" startY="-14.5" />
-               </children></Pane>
             <HBox fx:id="hiddenLayers" maxWidth="300.0" prefHeight="360.0" prefWidth="75.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0" spacing="5.0">

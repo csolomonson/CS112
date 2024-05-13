@@ -1,5 +1,7 @@
 package com.example.neuralnet;
 
+import com.example.neuralnet.activation.ActivationFunction;
+
 public class NeuralNetworkLayer {
     public int size;
     protected Neuron[] neurons;
@@ -65,4 +67,9 @@ public class NeuralNetworkLayer {
         return String.format("Neural Network Layer #%d (%d neurons)", id, size);
     }
 
+    public void setActivationFunction(ActivationFunction af) {
+        for (Neuron n : neurons) {
+            n.setActivationFunction(af);
+        }
+    }
 }

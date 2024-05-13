@@ -5,4 +5,6 @@ module com.example.neuralnet {
 
     opens com.example.neuralnet to javafx.fxml;
     exports com.example.neuralnet;
+    exports com.example.neuralnet.activation;
+    opens com.example.neuralnet.activation to javafx.fxml;
 }

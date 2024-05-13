@@ -1,5 +1,7 @@
 package com.example.neuralnet;
 
+import com.example.neuralnet.activation.*;
+
 public class NeuralNetwork {
     private InputLayer inputs;
     private NeuralNetworkLayer[] hiddenLayers;
@@ -9,8 +11,11 @@ public class NeuralNetwork {
     private int numHiddenLayers;
     private int hiddenSize;
 
+    private ActivationFunction activationFunction;
+
     public NeuralNetwork(int inputSize, int numHiddenLayers, int hiddenSize, int outputSize) {
         setHyperParameters(inputSize, numHiddenLayers, hiddenSize, outputSize);
+        activationFunction = new Linear();
     }
 
     public void updateStructure() {
@@ -25,6 +30,8 @@ public class NeuralNetwork {
             else hiddenLayers[i].setInputLayer(hiddenLayers[i-1]);
         }
         outputLayer.setInputLayer(hiddenLayers[numHiddenLayers-1]);
+        updateActivation();
+
     }
 
     public void setHyperParameters(int inputSize, int numHiddenLayers, int hiddenSize, int outputSize) throws IllegalArgumentException{
@@ -36,19 +43,20 @@ public class NeuralNetwork {
     }
 
     public void setInputSize(int inputSize) throws IllegalArgumentException{
-        if (inputSize < 1) throw new IllegalArgumentException("Invalid input size");
+        if (inputSize < 1 || inputSize > 10) throw new IllegalArgumentException("Invalid input size");
         this.inputSize = inputSize;
     }
     public void setNumHiddenLayers(int numHiddenLayers) {
         if (numHiddenLayers < 1) throw new IllegalArgumentException("Invalid number of hidden layers");
+        if (numHiddenLayers > 5) throw new IllegalArgumentException("Too many hidden layers (>= 5, please)");
         this.numHiddenLayers = numHiddenLayers;
     }
     public void setHiddenSize(int hiddenSize) throws IllegalArgumentException{
-        if (hiddenSize < 1) throw new IllegalArgumentException("Invalid hidden layer size");
+        if (hiddenSize < 1 || hiddenSize > 10) throw new IllegalArgumentException("Invalid hidden layer size");
         this.hiddenSize = hiddenSize;
     }
     public void setOutputSize(int outputSize) throws IllegalArgumentException{
-        if (outputSize < 1) throw new IllegalArgumentException("Invalid output size");
+        if (outputSize < 1 || outputSize > 10) throw new IllegalArgumentException("Invalid output size");
         this.outputSize = outputSize;
     }
 
@@ -73,6 +81,39 @@ public class NeuralNetwork {
         }
         arr[numHiddenLayers+1] = outputLayer.getNeurons();
         return arr;
+    }
+
+    public void setActivationFunction(String activationFunctionName) {
+        if (activationFunctionName == null) return;
+        switch (activationFunctionName) {
+            case "Linear":
+                this.activationFunction = new Linear();
+                break;
+            case "ReLu":
+                this.activationFunction = new ReLu();
+                break;
+            case "Leaky ReLu":
+                this.activationFunction = new LeakyReLu();
+                break;
+            case "Binary Step":
+                this.activationFunction = new BinaryStep();
+                break;
+            case "Sigmoid":
+                this.activationFunction = new Sigmoid();
+                break;
+        }
+        updateActivation();
+    }
+    public void updateActivation() {
+        if (activationFunction == null) activationFunction = new Linear();
+        for (Neuron[] l: getNeuronArray()) {
+            for (Neuron n : l) {
+
+                n.setActivationFunction(activationFunction);
+
+            }
+        }
+        step();
     }
 
 }

@@ -16,6 +16,7 @@ public class NeuronApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 700, 360);
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
