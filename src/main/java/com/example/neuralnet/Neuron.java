@@ -3,11 +3,12 @@ package com.example.neuralnet;
 import com.example.neuralnet.activation.ActivationFunction;
 import com.example.neuralnet.activation.Linear;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 
 
-public class Neuron implements Cloneable {
+public class Neuron implements Cloneable, Serializable {
     private double bias;
     private double[] weights;
     private Neuron[] inputs;

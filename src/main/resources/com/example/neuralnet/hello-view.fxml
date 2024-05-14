@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.neuralnet.NeuronController">
+<BorderPane fx:id = "bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.neuralnet.NeuronController">
    <right>
       <VBox prefHeight="380.0" prefWidth="220.0" BorderPane.alignment="CENTER">
          <children>
@@ -84,8 +84,8 @@
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="180.0" spacing="5.0">
                <children>
                   <Button fx:id="randomButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Random" onAction="#updateStructure"/>
-                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Save" />
-                  <Button fx:id="uploadButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Upload" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Save" onAction="#saveNN"/>
+                  <Button fx:id="uploadButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Load" onAction="#loadNN"/>
                </children>
 
                <VBox.margin>

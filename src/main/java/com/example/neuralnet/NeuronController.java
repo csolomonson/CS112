@@ -1,5 +1,6 @@
 package com.example.neuralnet;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -15,6 +17,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.*;
 
 public class NeuronController {
     @FXML
@@ -47,15 +53,19 @@ public class NeuronController {
     private VBox outputNeurons;
     @FXML
     private Pane outputWeights;
+    @FXML
+    private BorderPane bp;
 
     static NeuralNetwork nn;
 
+    private Stage primaryStage;
 
     @FXML
     public void initialize() {
         if (nn == null) nn  = new NeuralNetwork(inputs, numHidden, sizeHidden, outputs);
         activationFunctionChooser.getItems().addAll("Linear", "ReLu", "Leaky ReLu", "Sigmoid", "Binary Step");
         showNetwork();
+
     }
     @FXML
     public void updateStructure(Event event) {
@@ -147,6 +157,58 @@ public class NeuronController {
         int g = (int) (127.5 - 127.5*x*x);
         //System.out.println(x);
         return Color.rgb(r,g,b);
+    }
+
+    @FXML
+    public void saveNN(ActionEvent e) {
+        primaryStage = (Stage) bp.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
+        fileChooser.setTitle("Choose a file to save to");
+        File selectedFile = fileChooser.showSaveDialog(primaryStage);
+
+        try {
+            selectedFile.createNewFile();
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(selectedFile));
+            out.writeObject(nn);
+            out.close();
+        } catch (IOException ie) {
+            message.setText("IO exception!");
+        }
+    }
+
+    @FXML
+    public void loadNN(ActionEvent e) throws IOException {
+        primaryStage = (Stage) bp.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
+        fileChooser.setTitle("Choose a file to open");
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(selectedFile));
+            nn = (NeuralNetwork) in.readObject();
+            in.close();
+
+            inputs = nn.getInputSize();
+            outputs = nn.getOutputSize();
+            numHidden = nn.getNumHiddenLayers();
+            sizeHidden = nn.getHiddenSize();
+
+            inNum.setText(Integer.toString(inputs));
+            hiddenNum.setText(Integer.toString(numHidden));
+            hiddenSize.setText(Integer.toString(sizeHidden));
+            numOut.setText(Integer.toString(outputs));
+
+            showNetwork();
+
+
+        } catch (ClassNotFoundException c) {
+            message.setText("That file don't work");
+        }
+
+
+
+
     }
 
 

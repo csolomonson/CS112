@@ -2,7 +2,9 @@ package com.example.neuralnet;
 
 import com.example.neuralnet.activation.*;
 
-public class NeuralNetwork {
+import java.io.Serializable;
+
+public class NeuralNetwork implements Serializable {
     private InputLayer inputs;
     private NeuralNetworkLayer[] hiddenLayers;
     private NeuralNetworkLayer outputLayer;
@@ -46,6 +48,20 @@ public class NeuralNetwork {
         if (inputSize < 1 || inputSize > 10) throw new IllegalArgumentException("Invalid input size");
         this.inputSize = inputSize;
     }
+    public int getInputSize() {
+        return inputSize;
+    }
+    public int getOutputSize() {
+        return outputSize;
+    }
+    public int getNumHiddenLayers() {
+        return numHiddenLayers;
+    }
+
+    public int getHiddenSize() {
+        return hiddenSize;
+    }
+
     public void setNumHiddenLayers(int numHiddenLayers) {
         if (numHiddenLayers < 1) throw new IllegalArgumentException("Invalid number of hidden layers");
         if (numHiddenLayers > 5) throw new IllegalArgumentException("Too many hidden layers (>= 5, please)");

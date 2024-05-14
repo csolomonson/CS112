@@ -2,7 +2,9 @@ package com.example.neuralnet;
 
 import com.example.neuralnet.activation.ActivationFunction;
 
-public class NeuralNetworkLayer {
+import java.io.Serializable;
+
+public class NeuralNetworkLayer implements Serializable {
     public int size;
     protected Neuron[] neurons;
     protected static int population;
