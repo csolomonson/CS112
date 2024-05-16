@@ -1,5 +1,9 @@
 package com.example.neuralnet.activation;
 
+/**
+ * Outputs zero for negative inputs
+ * @author Cole Solomonson
+ */
 public class ReLu extends ActivationFunction {
     public ReLu(){}
     @Override

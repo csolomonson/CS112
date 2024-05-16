@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 
-
+/**
+ * Single neuron. Calculates weighted sum of a set of other neurons, adds a bias, and applies an ActivationFunction.
+ * @author Cole Solomonson
+ */
 public class Neuron implements Cloneable, Serializable {
     private double bias;
     private double[] weights;
@@ -16,7 +19,7 @@ public class Neuron implements Cloneable, Serializable {
 
     // calculated, not set
     private double activation;
-    private int size;
+    private int numInputs;
 
     /**
      * Full constructor. Set inputs, weights, and bias
@@ -54,7 +57,7 @@ public class Neuron implements Cloneable, Serializable {
      **/
     public void calculate() {
         double weightedSum = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < numInputs; i++) {
             weightedSum += inputs[i].getOutput() * weights[i];
         }
         activation = af.func(weightedSum + bias);
@@ -99,8 +102,8 @@ public class Neuron implements Cloneable, Serializable {
      **/
     public void setInputs(Neuron[] inputs) {
         this.inputs = inputs.clone();
-        this.size = inputs.length;
-        this.weights = new double[size];
+        this.numInputs = inputs.length;
+        this.weights = new double[numInputs];
         randomWeights();
     }
 
@@ -121,7 +124,7 @@ public class Neuron implements Cloneable, Serializable {
      *                the same length as inputs array
      **/
     public void setWeights(double[] weights) throws RuntimeException {
-        if (weights.length != size)
+        if (weights.length != numInputs)
             throw new RuntimeException("Poop! that's not the right number of weights!");
         this.weights = weights.clone();
     }
@@ -147,8 +150,8 @@ public class Neuron implements Cloneable, Serializable {
      *
      * @return Number of inputs to Neuron
      **/
-    public int getSize() {
-        return this.size;
+    public int getNumInputs() {
+        return this.numInputs;
     }
 
     /**
@@ -183,8 +186,8 @@ public class Neuron implements Cloneable, Serializable {
             return false;
         Neuron other = (Neuron) obj;
 
-        if (size == other.getSize() && bias == other.getBias()) {
-            for (int i = 0; i < size; i++) {
+        if (numInputs == other.getNumInputs() && bias == other.getBias()) {
+            for (int i = 0; i < numInputs; i++) {
                 if (weights[i] != other.weights[i]) return false;
             }
             return true;
@@ -199,10 +202,14 @@ public class Neuron implements Cloneable, Serializable {
      **/
     @Override
     public String toString() {
-        return String.format("Neuron with %d inputs, weights of %s, and a bias of %f", size, Arrays.toString(weights),
+        return String.format("Neuron with %d inputs, weights of %s, and a bias of %f", numInputs, Arrays.toString(weights),
                 bias);
     }
 
+    /**
+     * Set the ActivationFunction object that is applied to the weighted sum when calculating activation
+     * @param af Object that contains func() function to use
+     */
     public void setActivationFunction(ActivationFunction af) {
         this.af = af;
     }

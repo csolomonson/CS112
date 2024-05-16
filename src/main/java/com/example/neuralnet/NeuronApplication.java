@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class NeuronApplication extends Application {
 
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(NeuronApplication.class.getResource("hello-view.fxml"));

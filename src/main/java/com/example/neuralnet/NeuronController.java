@@ -22,6 +22,10 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
+/**
+ * A beautiful controller that I made
+ * @author Cole Solomonson
+ */
 public class NeuronController {
     @FXML
     private Label message;
@@ -60,6 +64,9 @@ public class NeuronController {
 
     private Stage primaryStage;
 
+    /**
+     * Some stuff to take care of before we start the program
+     */
     @FXML
     public void initialize() {
         if (nn == null) nn  = new NeuralNetwork(inputs, numHidden, sizeHidden, outputs);
@@ -67,6 +74,11 @@ public class NeuronController {
         showNetwork();
 
     }
+
+    /**
+     * Remake the NeuralNetwork based on the parameters in the TextFields and the chosen ActivationFunction
+     * @param event Event from the randomize Button or the TextFields
+     */
     @FXML
     public void updateStructure(Event event) {
 
@@ -94,12 +106,19 @@ public class NeuronController {
         }
     }
 
+    /**
+     * Change the network's activation function to that indicated in the ChoiceBox
+     * @param event Event from the ChoiceBox
+     */
     @FXML
     public void updateActFunc(Event event) {
         nn.setActivationFunction(activationFunctionChooser.getValue());
         showNetwork();
     }
 
+    /**
+     * Redraw the network; update colors of the Neurons and weights
+     */
     public void showNetwork() {
         inputNeurons.getChildren().clear();
         Neuron[][] arr = nn.getNeuronArray();
@@ -111,7 +130,7 @@ public class NeuronController {
             c.setOnScroll(new EventHandler<ScrollEvent>() {
                 @Override
                 public void handle(ScrollEvent scrollEvent) {
-                    System.out.println(scrollEvent.getDeltaY());
+                    //System.out.println(scrollEvent.getDeltaY());
                     n.setValue(n.getOutput() + scrollEvent.getDeltaY()*0.001);
                     showNetwork();
                 }
@@ -150,6 +169,11 @@ public class NeuronController {
         }
     }
 
+    /**
+     * Get a color between red and blue
+     * @param x Number to express as a color
+     * @return Color where x<=-1 is red, x>=1 is blue, x=0 is gray, and smooth interpolation between those
+     */
     public Color findColor(double x) {
         x = Math.max(Math.min(1,x),-1);
         int r = (int) (127.5 - 127.5*x);
@@ -159,6 +183,10 @@ public class NeuronController {
         return Color.rgb(r,g,b);
     }
 
+    /**
+     * Prompt user for a file location, and write the network to file
+     * @param e Event from the save Button
+     */
     @FXML
     public void saveNN(ActionEvent e) {
         primaryStage = (Stage) bp.getScene().getWindow();
@@ -174,9 +202,16 @@ public class NeuronController {
             out.close();
         } catch (IOException ie) {
             message.setText("IO exception!");
+        } catch (NullPointerException n) {
+            // do nothing :)
         }
     }
 
+    /**
+     * Prompt the user for a file location, open the given file, and attempt to load it as the NeuralNetwork
+     * @param e Event from the load Button
+     * @throws IOException Oops! Something went wrong with loading the file
+     */
     @FXML
     public void loadNN(ActionEvent e) throws IOException {
         primaryStage = (Stage) bp.getScene().getWindow();
@@ -204,6 +239,8 @@ public class NeuronController {
 
         } catch (ClassNotFoundException c) {
             message.setText("That file don't work");
+        } catch (NullPointerException n) {
+            // do nothing :)
         }
 
 

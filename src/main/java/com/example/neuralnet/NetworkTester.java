@@ -2,6 +2,10 @@ package com.example.neuralnet;
 
 import java.util.Arrays;
 
+/**
+ * What a tester! I made this!
+ * @author Cole Solomonson
+ */
 public class NetworkTester {
     public static void main(String[] args) {
         NeuralNetwork nn = new NeuralNetwork(3,2,2,10);
