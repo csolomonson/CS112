@@ -1,7 +1,5 @@
 package com.example.neuralnet;
 
-import com.example.neuralnet.activation.ActivationFunction;
-
 import java.io.Serializable;
 
 /**

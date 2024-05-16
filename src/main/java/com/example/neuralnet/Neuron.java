@@ -182,9 +182,8 @@ public class Neuron implements Cloneable, Serializable {
      **/
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Neuron))
+        if (!(obj instanceof Neuron other))
             return false;
-        Neuron other = (Neuron) obj;
 
         if (numInputs == other.getNumInputs() && bias == other.getBias()) {
             for (int i = 0; i < numInputs; i++) {

@@ -2,19 +2,14 @@ package com.example.neuralnet;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
@@ -31,36 +26,38 @@ public class NeuronController {
     private Label message;
     @FXML
     private TextField inNum;
-    static int inputs=2;
     @FXML
     private TextField hiddenNum;
-    static int numHidden=1;
     @FXML
     private TextField hiddenSize;
-    static int sizeHidden=4;
     @FXML
     private TextField numOut;
-    static int outputs=4;
     @FXML
     private ChoiceBox<String> activationFunctionChooser;
-    @FXML
-    private Button randomButton;
-    @FXML
-    private Button saveButton;
-    @FXML
-    private Button uploadButton;
     @FXML
     private VBox inputNeurons;
     @FXML
     private HBox hiddenLayers;
     @FXML
-    private VBox outputNeurons;
-    @FXML
-    private Pane outputWeights;
-    @FXML
     private BorderPane bp;
 
+//    @FXML
+//    private VBox outputNeurons;
+//    @FXML
+//    private Pane outputWeights;
+//    @FXML
+//    private Button randomButton;
+//    @FXML
+//    private Button saveButton;
+//    @FXML
+//    private Button uploadButton;
+
+
     static NeuralNetwork nn;
+    static int inputs=2;
+    static int numHidden=1;
+    static int sizeHidden=4;
+    static int outputs=4;
 
     private Stage primaryStage;
 
@@ -77,10 +74,10 @@ public class NeuronController {
 
     /**
      * Remake the NeuralNetwork based on the parameters in the TextFields and the chosen ActivationFunction
-     * @param event Event from the randomize Button or the TextFields
+     * @param ignoredEvent Event from the randomize Button or the TextFields
      */
     @FXML
-    public void updateStructure(Event event) {
+    public void updateStructure(Event ignoredEvent) {
 
         String in = inNum.getText();
         String out = numOut.getText();
@@ -108,10 +105,10 @@ public class NeuronController {
 
     /**
      * Change the network's activation function to that indicated in the ChoiceBox
-     * @param event Event from the ChoiceBox
+     * @param ignoredEvent Event from the ChoiceBox
      */
     @FXML
-    public void updateActFunc(Event event) {
+    public void updateActFunc(Event ignoredEvent) {
         nn.setActivationFunction(activationFunctionChooser.getValue());
         showNetwork();
     }
@@ -127,13 +124,9 @@ public class NeuronController {
             double x = n.getOutput();
             Circle c = new Circle(12);
             c.setFill(findColor(x));
-            c.setOnScroll(new EventHandler<ScrollEvent>() {
-                @Override
-                public void handle(ScrollEvent scrollEvent) {
-                    //System.out.println(scrollEvent.getDeltaY());
-                    n.setValue(n.getOutput() + scrollEvent.getDeltaY()*0.001);
-                    showNetwork();
-                }
+            c.setOnScroll(scrollEvent -> {
+                n.setValue(n.getOutput() + scrollEvent.getDeltaY() * 0.001);
+                showNetwork();
             });
             inputNeurons.getChildren().add(c);
         }
@@ -185,10 +178,10 @@ public class NeuronController {
 
     /**
      * Prompt user for a file location, and write the network to file
-     * @param e Event from the save Button
+     * @param ignoredEvent Event from the save Button
      */
     @FXML
-    public void saveNN(ActionEvent e) {
+    public void saveNN(ActionEvent ignoredEvent) {
         primaryStage = (Stage) bp.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
@@ -209,11 +202,11 @@ public class NeuronController {
 
     /**
      * Prompt the user for a file location, open the given file, and attempt to load it as the NeuralNetwork
-     * @param e Event from the load Button
+     * @param ignoredEvent Event from the load Button
      * @throws IOException Oops! Something went wrong with loading the file
      */
     @FXML
-    public void loadNN(ActionEvent e) throws IOException {
+    public void loadNN(ActionEvent ignoredEvent) throws IOException {
         primaryStage = (Stage) bp.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text file", "*.txt"));
