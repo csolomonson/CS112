@@ -3,12 +3,14 @@ package com.example.neuralnet;
 import com.example.neuralnet.activation.*;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Network of many layers
  * @author Cole Solomonson
  */
-public class NeuralNetwork implements Serializable {
+public class NeuralNetwork implements Serializable, Cloneable {
     private InputLayer inputs;
     private NeuralNetworkLayer[] hiddenLayers;
     private NeuralNetworkLayer outputLayer;
@@ -215,6 +217,31 @@ public class NeuralNetwork implements Serializable {
             }
         }
         step();
+    }
+
+    /**
+     * Creates a new copy that equals() but does not == this object
+     * @return A beautiful clone
+     */
+    @Override public Object clone() throws CloneNotSupportedException {
+        NeuralNetwork clone = (NeuralNetwork) super.clone();
+        clone.hiddenLayers = Arrays.copyOf(hiddenLayers, hiddenLayers.length);
+        clone.inputs = (InputLayer) inputs.clone();
+        clone.outputLayer = (NeuralNetworkLayer) outputLayer.clone();
+        return clone;
+    }
+
+
+    /**
+     * Check for equality
+     * @param o Other Object to check for equality
+     * @return Is it equal?
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NeuralNetwork that)) return false;
+        return Objects.equals(inputs, that.inputs) && Objects.deepEquals(hiddenLayers, that.hiddenLayers) && Objects.equals(outputLayer, that.outputLayer);
     }
 
 }

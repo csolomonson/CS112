@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Full layer of Neurons. Connects to an input layer, and calculates activation for every Neuron
  * @author Cole Solomonson
  */
-public class NeuralNetworkLayer implements Serializable {
+public class NeuralNetworkLayer implements Serializable, Cloneable {
     public int size;
     protected Neuron[] neurons;
     protected static int population;
@@ -96,4 +96,28 @@ public class NeuralNetworkLayer implements Serializable {
         return String.format("Neural Network Layer #%d (%d neurons)", id, size);
     }
 
+    /**
+     * Check if a layer is the same layer as another layer. Should only work if cloned, even if it's another layer of
+     * the exact same Neurons
+     * @param o Other NeuralNetworkLayer to check for equality
+     * @return Boolean indicating whether these are the same object.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof NeuralNetworkLayer)) return false;
+        NeuralNetworkLayer other = (NeuralNetworkLayer) o;
+        if (size != other.size) return false;
+        return id == other.id;
+    }
+
+    /**
+     * Creates a new copy that equals() but does not == this object
+     * @return A beautiful clone
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        NeuralNetworkLayer clone = (NeuralNetworkLayer) super.clone();
+        clone.neurons = (Neuron[]) neurons.clone();
+        return clone;
+    }
 }
